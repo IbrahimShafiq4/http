@@ -1,0 +1,126 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-md-6 offset-md-3">
+      <form 
+      #postForm="ngForm" 
+      (ngSubmit)="onCreatePost(postForm.value)">
+        <div 
+        class="form-group my-3">
+          <label for="title">Title</label>
+          <input 
+          type="text" 
+          class="form-control" 
+          #title 
+          id="title" 
+          required 
+          ngModel 
+          name="title"
+            
+          [ngClass]="{'is-invalid': 
+            postForm.controls['title']?.touched && 
+            !postForm.controls['title']?.dirty}" />
+          @if(postForm.controls['title']?.touched) {
+          <p class="invalid-feedback">
+            Title is Required
+          </p>
+          }
+        </div>
+        <div class="form-group mb-3">
+          <label for="content">{{ 'Content' | wordTransformation }}</label>
+          <textarea 
+          class="form-control" 
+          #content 
+          id="content" 
+          required 
+          ngModel 
+          name="content" rows="6"
+            
+          [ngClass]="{'is-invalid': 
+            postForm.controls['content']?.touched && 
+            !postForm.controls['content']?.dirty}"></textarea>
+          @if(postForm.controls['content']?.touched) {
+          <p class="invalid-feedback">
+            Title is Required
+          </p>
+          }
+        </div>
+        <button 
+        class="btn btn-primary" 
+        type="submit" 
+        [disabled]="!postForm.valid">
+          Send Post
+        </button>
+        <hr />
+      </form>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12 col-md-6 offset-md-3">
+      <button 
+      class="btn btn-primary" 
+      (click)="onFetchPosts()">
+        Fetch Posts
+      </button>
+      |
+      <button class="btn btn-danger" 
+      [disabled]="loadedPosts.length < 1" 
+      (click)="onClearPosts()">
+        Clear Posts
+      </button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12 col-md-6 offset-md-3">
+
+      @if (loadedPosts.length < 1 && !isFetching && !error) { <p>No posts available!</p>
+        }
+
+        @else if (loadedPosts.length >= 1 && !isFetching) {
+        <ul class="list-group">
+          @for (post of loadedPosts; track post.id; let index = $index) {
+          <li 
+            class="list-group-item" 
+            (click)="post.id && onDeleteASpecificPost(post.id, liElement)" #liElement>
+            <div>
+              <h1>
+                {{ post.title }}
+              </h1>
+              <p> {{ post.content }} </p>
+            </div>
+            <span>{{ index }}</span>
+          </li>
+          }
+        </ul>
+        }
+
+        @if (error && loadedPosts.length < 1) { 
+          <div class="alert alert-danger">
+            <h1>An Error Occurred!</h1>
+            <p class="error-message">
+              {{ error.denied }} cause you are {{ error.authorization }}
+            </p>
+            <button class="btn btn-danger" (click)="onHandleError()">Okay</button>
+          </div>
+        }
+  </div>
+</div>
+</div>
+
+<!-- 
+  in order to
+  see this loading animation 
+  you need to slow down the network 
+  cause the firebase is too quick and 
+  you'll rarely to see it if you 
+  didn't slow down your network 
+-->
+@if (isFetching) {
+<div class="loading">
+  <div class="loader">
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+}

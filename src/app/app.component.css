@@ -1,0 +1,169 @@
+@import url("https://fonts.googleapis.com/css2?family=Bungee&display=swap");
+
+* {
+    font-family: "Bungee", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.container {
+    margin-top: 30px;
+}
+
+.row {
+    margin: 20px 0;
+}
+
+label {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+textarea {
+    resize: none;
+}
+
+.list-group {
+    overflow-x: hidden;
+}
+
+.list-group-item {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    justify-content: space-between;
+
+    span {
+        background-color: #ed5c6c;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 5px 10px;
+        border-radius: 5px;
+        color: #fff;
+    }
+}
+
+.loading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.7);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    z-index: 100;
+}
+
+.loader {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    overflow: hidden;
+    -webkit-box-reflect: below 1px linear-gradient(transparent, #0005);
+}
+
+.loader:hover {
+    background: #03e9f4;
+    box-shadow:
+        0 0 5px #03e9f4,
+        0 0 25px #03e9f4,
+        0 0 50px #03e9f4,
+        0 0 200px #03e9f4;
+}
+
+.loader span {
+    position: absolute;
+    display: block;
+}
+
+.loader span:nth-child(1) {
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 40px;
+    background: linear-gradient(90deg, transparent, #03e9f4);
+    animation: animate1 1s linear infinite;
+    animation-delay: 0;
+}
+
+@keyframes animate1 {
+    0% {
+        left: -100%;
+    }
+
+    100% {
+        left: 100%;
+    }
+}
+
+.loader span:nth-child(2) {
+    top: -100%;
+    right: 0;
+    width: 40px;
+    height: 100%;
+    background: linear-gradient(180deg, transparent, #03e9f4);
+    animation: animate2 1s linear infinite;
+    animation-delay: 0.5s;
+}
+
+@keyframes animate2 {
+    0% {
+        top: -100%;
+    }
+
+    100% {
+        top: 100%;
+    }
+}
+
+.loader span:nth-child(3) {
+    bottom: 0;
+    left: -100%;
+    width: 100%;
+    height: 40px;
+    background: linear-gradient(270deg, transparent, #03e9f4);
+    animation: animate3 1s linear infinite;
+    animation-delay: 0s;
+}
+
+@keyframes animate3 {
+    0% {
+        left: 100%;
+    }
+
+    100% {
+        left: -100%;
+    }
+}
+
+.loader span:nth-child(4) {
+    top: 100%;
+    left: 0;
+    width: 40px;
+    height: 100%;
+    background: linear-gradient(0deg, transparent, #03e9f4);
+    animation: animate4 1s linear infinite;
+    animation-delay: 0.5s;
+}
+
+@keyframes animate4 {
+    0% {
+        top: 100%;
+    }
+
+    100% {
+        top: -100%;
+    }
+}
+
+.error-message {
+    font-family: monospace;
+    font-size: 18px;
+    margin-top: 10px;
+}
